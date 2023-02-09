@@ -1,2 +1,51 @@
 #!/bin/bash
-cp --ignore-existing --include=*.html --exclude=* ./ ../
+
+
+
+# Get a list of all HTML files in the current working directory
+
+files=$(find . -type f -name "*.html")
+
+
+
+# Loop through each file
+
+for file in $files; do
+    
+    # Get the file name without the path
+    
+    filename=$(basename "$file")
+    
+    # Construct the path to the file in the parent directory
+    
+    parent_file="../$filename"
+    
+    # Check if the file exists in the parent directory
+    
+    if [ -f "$parent_file" ]; then
+	
+	# Check if the file in the current directory is newer than the file in the parent directory
+	
+	if [ "$file" -nt "$parent_file" ]; then
+	    
+	    # Copy the file from the current directory to the parent directory
+	    
+	    cp "$file" "$parent_file"
+	    
+	    echo "Copied $file to $parent_file"
+	    
+	fi
+	
+    else
+	
+	# Copy the file from the current directory to the parent directory
+	
+	cp "$file" "$parent_file"
+	
+	echo "Copied $file to $parent_file"
+	
+    fi
+    
+done
+
+
