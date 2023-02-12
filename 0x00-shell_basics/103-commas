@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -a | awk 'BEGIN {ORS=","} /^[a-zA-Z0-9]/ {print} /^\.[^\.]/ {print} END {print "\n"}'
+ls -pamv
